@@ -1,0 +1,3 @@
+requests==2.34.2
+aiohttp==3.14.3
+beans-logging==12.2.0

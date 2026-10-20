@@ -1,0 +1,19 @@
+# services:
+#   cron:
+#     volumes:
+#       - "./volumes/configs/cron/periodic:/app/cron/scripts/periodic"
+#       - "./volumes/storage:/var/lib/storage"
+#       - "./volumes/backups:/var/lib/backups"
+#       - "./volumes/.vscode-server:/home/cron-user/.vscode-server"
+#       - "/var/run/docker.sock:/var/run/docker.sock"
+#     network_mode: host
+#     command: ["/bin/bash"]
+#     deploy:
+#       replicas: 1
+#       resources:
+#         limits:
+#           cpus: "0.25"
+#           memory: 256M
+#         reservations:
+#           cpus: "0.1"
+#           memory: 64M

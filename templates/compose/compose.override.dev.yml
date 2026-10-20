@@ -1,0 +1,21 @@
+services:
+  cron:
+    image: humblebeeai/sidecar-cron:latest
+    volumes:
+      - "./scripts/docker/docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh"
+      - "./src:/app/cron"
+      - "./volumes/.vscode-server:/home/cron-user/.vscode-server"
+    #   - "./volumes/storage:/var/lib/storage"
+    #   - "./volumes/backups:/var/lib/backups"
+    #   - "/var/run/docker.sock:/var/run/docker.sock"
+    # network_mode: host
+    # command: ["/bin/bash"]
+    # deploy:
+    #   replicas: 1
+    #   resources:
+    #     limits:
+    #       cpus: "0.25"
+    #       memory: 256M
+    #     reservations:
+    #       cpus: "0.1"
+    #       memory: 64M

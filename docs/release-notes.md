@@ -6,6 +6,17 @@ hide:
 
 # 📌 Release Notes
 
+## v1.1.1-261021 (2026-10-21)
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.1-261021 -->
+
+## What's Changed
+### 🐛 Fixes
+* feat: update backup script to allow compression with file changes by @bybatkhuu in https://github.com/humblebeeai/sidecar-cron/pull/7
+
+
+**Full Changelog**: https://github.com/humblebeeai/sidecar-cron/compare/v1.1.0-261021...v1.1.1-261021
+
 ## v1.1.0-261021 (2026-10-21)
 
 <!-- Release notes generated using configuration in .github/release.yml at v1.1.0-261021 -->

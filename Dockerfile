@@ -140,4 +140,7 @@ WORKDIR /app/cron
 COPY --chown=${UID}:${GID} --chmod=770 ./src /app/cron
 COPY --chown=root:root --chmod=775 ./scripts/docker/*.sh /usr/local/bin/
 
+HEALTHCHECK --start-period=30s --start-interval=1s --interval=5m --timeout=5s --retries=5 \
+	CMD pgrep -x cron || exit 1
+
 ENTRYPOINT ["docker-entrypoint.sh"]

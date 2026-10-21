@@ -1,8 +1,9 @@
-.PHONY: help validate start logs stop compose clean get-version bump-version build release changelog
+.PHONY: help validate pull start logs stop compose clean get-version bump-version build release changelog
 
 help:
 	@echo "make help         -- show this help"
-	@echo "make validate    -- validate docker-compose files"
+	@echo "make validate     -- validate docker-compose files"
+	@echo "make pull         -- pull or update to latest images"
 	@echo "make start        -- start docker-compose services"
 	@echo "make logs         -- show docker-compose logs for all services"
 	@echo "make stop         -- stop docker-compose services"
@@ -17,6 +18,9 @@ help:
 
 validate:
 	./compose.sh validate
+
+pull:
+	./compose.sh pull
 
 start:
 	./compose.sh start -l

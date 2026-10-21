@@ -11,11 +11,4 @@ services:
       - "./volumes/configs/cron/scripts:/app/cron/scripts/custom"
       - "./volumes/configs/cron/cron.d:/app/cron/configs/cron.d"
       - "./volumes/storage/cron/logs:/var/log/cron"
-    healthcheck:
-      test: "pgrep -x cron || exit 1"
-      start_period: 10s
-      start_interval: 1s
-      interval: 5m
-      timeout: 5s
-      retries: 3
     tty: true

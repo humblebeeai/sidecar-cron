@@ -55,17 +55,11 @@ _backup_data_dir()
 	_backup_file_path="${_backup_dir}/${_data_dir_name}.$(date -u '+%Y%m%d_%H%M%S').tar.gz"
 	echo "[INFO]: Creating backup file: '${_backup_file_path}'..."
 
-	# Fail if any file changed during the backup process, to avoid inconsistent backups.
-	tar -czpf "${_backup_file_path}" \
-		--exclude="${_data_dir_name}/log" \
+	# Compress even if files changed during the backup process, but warn about it.
+	tar -czhpf "${_backup_file_path}" \
+		--warning=no-file-changed \
 		-C "$(dirname "${_data_dir}")" \
 		"${_data_dir_name}" || exit 2
-
-	# Compress even if files changed during the backup process, but warn about it.
-	# tar -czpf "${_backup_file_path}" \
-	# 	--warning=no-file-changed \
-	# 	-C "$(dirname "${_data_dir}")" \
-	# 	"${_data_dir_name}" || exit 2
 
 	chown -c "${BACKUP_UID}:${BACKUP_GID}" "${_backup_file_path}" || exit 2
 	chmod -c 660 "${_backup_file_path}" || exit 2

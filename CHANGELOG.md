@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.0.0-261024 (2026-10-24)
+
+<!-- Release notes generated using configuration in .github/release.yml at v2.0.0-261024 -->
+
+
+
+**Full Changelog**: https://github.com/humblebeeai/sidecar-cron/compare/v1.1.1-261021...v2.0.0-261024
+
 ## v1.1.1-261021 (2026-10-21)
 
 <!-- Release notes generated using configuration in .github/release.yml at v1.1.1-261021 -->

@@ -1,6 +1,6 @@
 services:
   cron:
-    image: humblebeeai/cron:1.1.1-261021
+    image: humblebeeai/cron:2.0.0-261024
     build:
       context: .
     restart: always

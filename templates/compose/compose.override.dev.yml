@@ -1,6 +1,6 @@
 services:
   cron:
-    image: humblebeeai/sidecar-cron:latest
+    image: humblebeeai/cron:latest
     volumes:
       - "./scripts/docker/docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh"
       - "./src:/app/cron"

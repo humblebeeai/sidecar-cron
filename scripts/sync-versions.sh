@@ -29,7 +29,7 @@ fi
 VERSION_FILE_PATH="${VERSION_FILE_PATH:-./VERSION.txt}"
 COMPOSE_FILE_PATH="${COMPOSE_FILE_PATH:-./compose.yml}"
 SERVICE_NAME="${SERVICE_NAME:-cron}"
-IMG_NAME="${IMG_NAME:-humblebeeai/sidecar-cron}"
+IMG_NAME="${IMG_NAME:-humblebeeai/cron}"
 
 # Flags:
 _IS_ADD=false

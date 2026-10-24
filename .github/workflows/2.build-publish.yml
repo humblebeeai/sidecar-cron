@@ -50,11 +50,11 @@ jobs:
             "HASH_PASSWORD=${{ secrets.DOCKER_UID_HASH_PASSWORD }}"
           # platforms: linux/amd64
           platforms: linux/amd64,linux/arm64
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/sidecar-cron:cache-latest
-          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/sidecar-cron:cache-latest,mode=max
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/cron:cache-latest
+          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/cron:cache-latest,mode=max
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/sidecar-cron:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/sidecar-cron:${{ env._VERSION }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/cron:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/cron:${{ env._VERSION }}
           push: true
       - name: Trigger release
         env:

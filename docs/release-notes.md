@@ -6,6 +6,20 @@ hide:
 
 # 📌 Release Notes
 
+## v2.0.1-261122 (2026-11-22)
+
+<!-- Release notes generated using configuration in .github/release.yml at v2.0.1-261122 -->
+
+## What's Changed
+### 👷 CI/CD
+* Update dependencies: flake8 to 7.5.0 and markdownlint-cli to 0.50.0 by @bybatkhuu in https://github.com/humblebeeai/sidecar-cron/pull/10
+### 💬 Other
+* build(deps): bump https://github.com/PyCQA/flake8 from 7.4.1 to 7.5.0 by @dependabot[bot] in https://github.com/humblebeeai/sidecar-cron/pull/8
+* build(deps): bump https://github.com/igorshubovych/markdownlint-cli from v0.49.1 to 0.50.0 by @dependabot[bot] in https://github.com/humblebeeai/sidecar-cron/pull/9
+
+
+**Full Changelog**: https://github.com/humblebeeai/sidecar-cron/compare/v2.0.0-261024...v2.0.1-261122
+
 ## v2.0.0-261024 (2026-10-24)
 
 <!-- Release notes generated using configuration in .github/release.yml at v2.0.0-261024 -->

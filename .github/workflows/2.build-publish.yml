@@ -10,16 +10,15 @@ on:
     tags:
       - "v*.*.*-*"
 
-env:
-  _VERSION: 0.0.0-260101
+permissions:
+  contents: read
 
 jobs:
-  build_publish:
-    name: Build and Publish
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: read
-      actions: write
+  setup:
+    name: Resolve Version
+    runs-on: ubuntu-26.04
+    outputs:
+      version: ${{ steps.resolve.outputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -27,36 +26,41 @@ jobs:
         run: |
           git pull origin main
           echo "Current version: v$(./scripts/get-version.sh)"
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v4
-        # with:
-        #   ## Latest version causes segfault:
-        #   ## https://github.com/docker/setup-qemu-action/issues/198
-        #   image: tonistiigi/binfmt:qemu-v7.0.0-28
-      - name: Set up docker buildx
-        uses: docker/setup-buildx-action@v4
-      - name: Login to docker registry
-        uses: docker/login-action@v4
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+      - name: Resolve version
+        id: resolve
+        run: echo "version=$(./scripts/get-version.sh)" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Build and Publish
+    needs: setup
+    uses: docker/github-builder/.github/workflows/build.yml@v1
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      output: image
+      push: true
+      platforms: linux/amd64,linux/arm64
+      cache: true
+      cache-mode: max
+      meta-images: ${{ vars.DOCKERHUB_USERNAME }}/cron
+      meta-tags: |
+        type=raw,value=latest
+        type=raw,value=${{ needs.setup.outputs.version }}
+    secrets:
+      registry-auths: |
+        - registry: docker.io
+          username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Get version
-        run: echo "_VERSION=$(./scripts/get-version.sh)" >> ${GITHUB_ENV}
-      - name: Build and push
-        uses: docker/build-push-action@v7
-        with:
-          context: .
-          secrets: |
-            "HASH_PASSWORD=${{ secrets.DOCKER_UID_HASH_PASSWORD }}"
-          # platforms: linux/amd64
-          platforms: linux/amd64,linux/arm64
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/cron:cache-latest
-          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/cron:cache-latest,mode=max
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/cron:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/cron:${{ env._VERSION }}
-          push: true
+
+  release:
+    name: Trigger Release
+    needs: build
+    runs-on: ubuntu-26.04
+    permissions:
+      actions: write
+    steps:
       - name: Trigger release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh workflow run 3.create-release.yml
+        run: gh workflow run 3.create-release.yml --repo ${{ github.repository }}
